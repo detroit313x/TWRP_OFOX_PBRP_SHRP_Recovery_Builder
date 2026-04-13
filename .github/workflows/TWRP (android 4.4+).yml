@@ -161,7 +161,7 @@ jobs:
       working-directory: ${{ steps.pwd.outputs.android-recovery-folder }}
 
     - name: Upload to Release
-      uses: softprops/action-gh-release@v2
+      uses: softprops/action-gh-release@v3
       with:
         files: | 
           ${{ env.OUTPUT_DIR}}/${{ inputs.DEVICE_NAME }}/recovery.img
