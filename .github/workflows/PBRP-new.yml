@@ -89,7 +89,7 @@ jobs:
 
     - name: Upload to Release
       if: success()
-      uses: softprops/action-gh-release@v2
+      uses: softprops/action-gh-release@v3
       with:
         files: |
           ${{ env.OUTPUT_DIR }}/*.img

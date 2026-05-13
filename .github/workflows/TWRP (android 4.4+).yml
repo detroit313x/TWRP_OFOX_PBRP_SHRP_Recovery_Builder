@@ -93,7 +93,7 @@ jobs:
 
     - name: Setup SSH Keys
       if: ${{ startsWith(github.event.inputs.MANIFEST_URL, 'git@github.com') }}
-      uses: webfactory/ssh-agent@v0.9.1
+      uses: webfactory/ssh-agent@v0.10.0
       with:
           ssh-private-key: |
               ${{ secrets.SSH_PRIVATE_KEY }}
@@ -161,7 +161,7 @@ jobs:
       working-directory: ${{ steps.pwd.outputs.android-recovery-folder }}
 
     - name: Upload to Release
-      uses: softprops/action-gh-release@v2
+      uses: softprops/action-gh-release@v3
       with:
         files: | 
           ${{ env.OUTPUT_DIR}}/${{ inputs.DEVICE_NAME }}/recovery.img
