@@ -10,3 +10,8 @@ Encryption, touch/display drivers, bootloader fragment selection and actual-devi
 Do not flash to an unidentified or locked device; no installation instructions are provided.
 PBRP stable documented manifest android-12.1 is used at current heads; synced revision manifest will be saved.
 Original branches and default workflows are preserved. Only the isolated temporary branch is changed.
+
+Packaging: unsigned vendor_boot v4 postprocessing orders platform/DLKM fragments before RECOVERY in both the physical ramdisk and table, preserving compressed fragment payloads, board IDs, DTB, bootconfig and header. This prevents the stock platform archive from overwriting compiled recovery when fragments are consumed in image/table order. Android permits bootloaders to choose a different order; this is not proof of Kansas bootloader behavior. The generic init_boot ramdisk loads last under the Android specification. No stock signed image is modified.
+
+Postprocessing regression tests cover byte preservation, idempotence, rejection of signatures, malformed overlaps, truncation and wrong version. Runtime binary/UI/fstab inspection of the actual generated image remains mandatory.
+Reference: https://source.android.com/docs/core/architecture/partitions/vendor-boot-partitions

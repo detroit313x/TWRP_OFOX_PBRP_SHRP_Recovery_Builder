@@ -53,7 +53,13 @@ jobs:
           get_build_var TW_THEME | tee ../build-evidence/theme-make.txt
           m -j4 TARGET_PRODUCT=pb_kansas TARGET_BUILD_VARIANT=eng vendorbootimage 2>&1 | tee ../build-evidence/compile.log
           test -s out/target/product/kansas/vendor_boot.img
-          cp out/target/product/kansas/vendor_boot.img ../build-evidence/EXPERIMENTAL-UNTESTED-vendor_boot.img
+          # Keep stock platform before recovery in table and physical layout.
+          # Bootloader fragment-selection/reordering still requires device testing.
+          python3 ../kansas-build/tools/test_reorder_vendor_fragments.py
+          python3 ../kansas-build/tools/reorder_vendor_fragments.py \
+            out/target/product/kansas/vendor_boot.img \
+            ../build-evidence/EXPERIMENTAL-UNTESTED-vendor_boot.img \
+            > ../build-evidence/fragment-order.json
           sha256sum ../build-evidence/EXPERIMENTAL-UNTESTED-vendor_boot.img > ../build-evidence/SHA256SUMS
           cp ../kansas-build/REFERENCE.md ../build-evidence/
       - name: Collect failure evidence
