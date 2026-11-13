@@ -47,7 +47,8 @@ BOARD_DTB_OFFSET := 0x07c80000
 BOARD_MKBOOTIMG_ARGS := --header_version 4 --ramdisk_offset $(BOARD_RAMDISK_OFFSET) --tags_offset $(BOARD_TAGS_OFFSET) --dtb_offset $(BOARD_DTB_OFFSET)
 TARGET_NO_KERNEL := true
 BOARD_INCLUDE_DTB_IN_BOOTIMG := true
-BOARD_PREBUILT_DTB := $(DEVICE_PATH)/dtb
+# Android 12.1 build/make consumes *.dtb from this directory.
+BOARD_PREBUILT_DTBIMAGE_DIR := $(DEVICE_PATH)/dtbs
 BOARD_KERNEL_CMDLINE := bootopt=64S3,32N2,64N2 mem.enable_mglru=1 loglevel=4 initcall_debug=0
 TARGET_BOARD_PLATFORM := mt6835
 BOARD_FLASH_BLOCK_SIZE := 131072
