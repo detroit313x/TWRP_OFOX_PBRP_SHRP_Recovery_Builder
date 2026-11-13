@@ -1,0 +1,11 @@
+# TWRP-format mountpoint / filesystem / device. Experimental reference variant only.
+# No invented cache or dedicated recovery partition; no security/FRP partitions exposed.
+/system_root erofs /dev/block/mapper/system flags=logical;slotselect;display="System";backup=1
+/system_ext erofs /dev/block/mapper/system_ext flags=logical;slotselect;display="System Ext"
+/vendor erofs /dev/block/mapper/vendor flags=logical;slotselect;display="Vendor"
+/product erofs /dev/block/mapper/product flags=logical;slotselect;display="Product"
+/metadata f2fs /dev/block/by-name/metadata flags=display="Metadata"
+/data f2fs /dev/block/by-name/userdata flags=display="Data";backup=1
+/boot emmc /dev/block/by-name/boot flags=slotselect;display="Boot";backup=1
+/vendor_boot emmc /dev/block/by-name/vendor_boot flags=slotselect;display="Vendor Boot";backup=1
+/init_boot emmc /dev/block/by-name/init_boot flags=slotselect;display="Init Boot";backup=1
