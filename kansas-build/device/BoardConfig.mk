@@ -38,7 +38,7 @@ TW_INPUT_BLACKLIST := "hbtp_vm,fts_ts"
 
 # Experimental vendor_boot v4 target, derived from XT2513V reference firmware.
 # The owner's exact variant/build remains unconfirmed. This is NOT flash-tested.
-BOARD_BOOTIMG_HEADER_VERSION := 4
+BOARD_BOOT_HEADER_VERSION := 4
 BOARD_KERNEL_PAGESIZE := 4096
 BOARD_KERNEL_BASE := 0x40000000
 BOARD_RAMDISK_OFFSET := 0x26f00000
@@ -59,7 +59,6 @@ BOARD_VENDOR_RAMDISK_FRAGMENT.platform.PREBUILT := $(DEVICE_PATH)/stock_platform
 BOARD_VENDOR_RAMDISK_FRAGMENT.platform.MKBOOTIMG_ARGS := --ramdisk_type PLATFORM
 BOARD_USES_GENERIC_KERNEL_IMAGE := true
 BOARD_USES_METADATA_PARTITION := true
-BOARD_SUPER_PARTITION_SIZE := 0
 TARGET_COPY_OUT_VENDOR := vendor
 AB_OTA_UPDATER := true
 AB_OTA_PARTITIONS += boot vendor_boot init_boot dtbo vbmeta vbmeta_system
