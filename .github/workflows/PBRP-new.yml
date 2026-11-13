@@ -45,9 +45,13 @@ jobs:
           source build/envsetup.sh
           set -e
           set -o pipefail
-          lunch pb_kansas-eng 2>&1 | tee ../build-evidence/lunch.log
+          # A pipeline runs lunch in a subshell and loses its exported target.
+          # Redirect through process substitution so target selection persists.
+          lunch pb_kansas-eng > >(tee ../build-evidence/lunch.log) 2>&1
+          test "$TARGET_PRODUCT" = pb_kansas
+          test "$(get_build_var TARGET_ARCH)" = arm64
           get_build_var TW_THEME | tee ../build-evidence/theme-make.txt
-          mka -j4 vendorbootimage 2>&1 | tee ../build-evidence/compile.log
+          m -j4 TARGET_PRODUCT=pb_kansas TARGET_BUILD_VARIANT=eng vendorbootimage 2>&1 | tee ../build-evidence/compile.log
           test -s out/target/product/kansas/vendor_boot.img
           cp out/target/product/kansas/vendor_boot.img ../build-evidence/EXPERIMENTAL-UNTESTED-vendor_boot.img
           sha256sum ../build-evidence/EXPERIMENTAL-UNTESTED-vendor_boot.img > ../build-evidence/SHA256SUMS
