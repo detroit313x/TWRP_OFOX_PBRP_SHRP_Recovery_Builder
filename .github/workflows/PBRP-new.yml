@@ -46,6 +46,7 @@ jobs:
           set -e
           set -o pipefail
           lunch pb_kansas-eng 2>&1 | tee ../build-evidence/lunch.log
+          get_build_var TW_THEME | tee ../build-evidence/theme-make.txt
           mka -j4 vendorbootimage 2>&1 | tee ../build-evidence/compile.log
           test -s out/target/product/kansas/vendor_boot.img
           cp out/target/product/kansas/vendor_boot.img ../build-evidence/EXPERIMENTAL-UNTESTED-vendor_boot.img
@@ -57,7 +58,7 @@ jobs:
           mkdir -p build-evidence
           df -h > build-evidence/disk-final.txt
           find android-recovery/out -name '*.log' -o -name 'soong.log' -o -name '*error*' 2>/dev/null | head -30 > build-evidence/log-paths.txt || true
-          for f in android-recovery/out/soong/build.ninja.d android-recovery/out/verbose.log.gz android-recovery/out/error.log; do
+          for f in android-recovery/out/soong/build.ninja.d android-recovery/out/verbose.log.gz android-recovery/out/error.log android-recovery/out/soong/soong.variables; do
             if [ -f "$f" ]; then cp "$f" build-evidence/; fi
           done
       - uses: actions/upload-artifact@v4

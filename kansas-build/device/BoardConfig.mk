@@ -23,8 +23,8 @@ TARGET_BOOTLOADER_BOARD_NAME := kansas
 TARGET_NO_BOOTLOADER := true
 
 # --- THE "STABLE GRAPHICS" FIX ---
-DEVICE_SCREEN_WIDTH := 720
-DEVICE_SCREEN_HEIGHT := 1604
+TARGET_SCREEN_WIDTH := 720
+TARGET_SCREEN_HEIGHT := 1604
 TARGET_SCREEN_DENSITY := 280
 
 # MediaTek Kernel 5.15+ Display Settings
@@ -69,3 +69,10 @@ TW_INCLUDE_FASTBOOTD := true
 # Encryption on Android 16/MediaTek is not established; do not advertise decryption.
 TW_INCLUDE_CRYPTO := false
 TW_NO_SCREEN_BLANK := true
+
+# Export recovery UI configuration explicitly for PBRP's Soong defaults plugin.
+SOONG_CONFIG_NAMESPACES += pbVarsPlugin
+SOONG_CONFIG_pbVarsPlugin += TW_THEME TARGET_SCREEN_WIDTH TARGET_SCREEN_HEIGHT
+SOONG_CONFIG_pbVarsPlugin_TW_THEME := portrait_hdpi
+SOONG_CONFIG_pbVarsPlugin_TARGET_SCREEN_WIDTH := 720
+SOONG_CONFIG_pbVarsPlugin_TARGET_SCREEN_HEIGHT := 1604
